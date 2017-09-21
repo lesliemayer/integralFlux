@@ -1,0 +1,33 @@
+CFLAGS = -Wno-deprecated
+
+CC = g++
+LIBS =
+INCLUDES =
+CFLAGS = -g -Wall
+
+
+all: goes_int_flux.o GoesDataClass.o UncorrectedCountsClass.o GammaClass.o EnergyClass.o DirectionClass.o
+	${CC} goes_int_flux.o GoesDataClass.o UncorrectedCountsClass.o GammaClass.o EnergyClass.o DirectionClass.o -o goes_int_flux
+
+goes_int_flux.o: goes_int_flux.cpp GoesDataClass.o
+	${CC} ${CFLAGS} goes_int_flux.cpp -c -o goes_int_flux.o ${LIBS}
+
+GoesDataClass.o: GoesDataClass.cpp GoesDataClass.h GammaClass.o EnergyClass.o UncorrectedCountsClass.o DirectionClass.o definitions.h
+	${CC} ${CFLAGS} GoesDataClass.cpp -c -o GoesDataClass.o ${LIBS}
+
+UncorrectedCountsClass.o: UncorrectedCountsClass.cpp UncorrectedCountsClass.h definitions.h
+	${CC} ${CFLAGS} UncorrectedCountsClass.cpp -c -o UncorrectedCountsClass.o ${LIBS}
+
+GammaClass.o: GammaClass.cpp GammaClass.h definitions.h 
+	${CC} ${CFLAGS} GammaClass.cpp -c -o GammaClass.o ${LIBS}
+
+EnergyClass.o: EnergyClass.cpp EnergyClass.h definitions.h
+	${CC} ${CFLAGS} EnergyClass.cpp -c -o EnergyClass.o ${LIBS}
+
+DirectionClass.o: DirectionClass.cpp DirectionClass.h definitions.h
+	${CC} ${CFLAGS} DirectionClass.cpp -c -o DirectionClass.o ${LIBS}
+
+
+clean:
+	rm -f *.o *~ goes_int_flux
+
